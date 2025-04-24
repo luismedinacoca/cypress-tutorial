@@ -1,0 +1,27 @@
+{
+  "name": "cypress-course-joanmedia",
+  "version": "1.0.0",
+  "description": "Cypress automation Project from Udemy",
+  "main": "index.js",
+  "scripts": {
+    "runner": "cypress open --e2e --browser firefox",
+    "test": "cypress open",
+    "newEnvCli": "cypress open --e2e --browser firefox --env demoVar=Hello_from_package_file_json"
+  },
+  "keywords": [
+    "cypress",
+    "javascript",
+    "typescript",
+    "testing"
+  ],
+  "author": "Luis Medina Coca",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^14.3.2",
+    "cypress-real-events": "^1.14.0",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@cypress/xpath": "^2.0.3"
+  }
+}
