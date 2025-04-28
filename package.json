@@ -4,7 +4,9 @@
   "description": "Cypress automation Project from Udemy",
   "main": "index.js",
   "scripts": {
-    "runner": "cypress open --e2e --browser firefox",
+    "firefox": "cypress open --e2e --browser firefox",
+    "edge": "cypress open --e2e --browser edge",
+    "chrome": "cypress open --e2e --browser chrome",
     "test": "cypress open",
     "newEnvCli": "cypress open --e2e --browser firefox --env demoVar=Hello_from_package_file_json"
   },

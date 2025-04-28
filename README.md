@@ -102,6 +102,12 @@ or
 $ npm install
 ```
 
+
+4. In case of corruption file, execute:
+```js
+$ npx cypress install
+```
+
 # Lecture 012 - Configuring Cypress for E2E Testing
 
 1. Open `package.json` file then modify the `"test": "cypress open"` line:
