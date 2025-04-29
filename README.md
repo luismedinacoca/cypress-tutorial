@@ -1213,44 +1213,148 @@ it(`Visit ${Cypress.env("demoQA")}`, () => {
 });
 ```
 
+
+# Lecture 075 - Upload a File
+
+1. Install cypress-file-upload:
+```bash
+$ npm install --save-dev cypress-file-upload
+```
+
+2. Working with Typescript, open `tsconfig.json` file then add:
+```js
+{
+  "compilerOptions": {
+    "types": ["cypress-file-upload"]  // (*)
+  }
+}
+```
+
+3. Add inside `commands.ts` file:
+```js
+import "cypress-file-upload";
+```
+4. Import `commands.ts` inside `e2e.ts` file.
+
+
+## Waiting for Uploading file is complete.
+
+```js
+// start watching the POST requests
+cy.server({ method:'POST' });
+// and in particular the one with 'upload_endpoint' in the URL
+cy.route({
+  method: 'POST',
+  url: /upload_endpoint/
+}).as('upload');
+
+
+const fileName = 'upload_1.xlsx';
+
+cy.fixture(fileName, 'binary')
+    .then(Cypress.Blob.binaryStringToBlob)
+    .then(fileContent => {
+      cy.get('#input_upload_file').attachFile({
+        fileContent,
+        fileName,
+        mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        encoding:'utf8',
+        lastModified: new Date().getTime()
+      })
+    })
+
+// wait for the 'upload_endpoint' request, and leave a 2 minutes delay before throwing an error
+cy.wait('@upload', { requestTimeout: 120000 });
+
+// stop watching requests
+cy.server({ enable: false })
+
+// keep testing the app
+// e.g. cy.get('.link_file[aria-label="upload_1"]').contains('(xlsx)');
 ```
 
 
+another way:
+```js
+describe('Subir archivo (alternativa simple)', () => {
+  it('Debería permitir la subida de un archivo y mostrar indicación de éxito', () => {
+    cy.visit('/ruta/a/la/pagina/de/carga');
 
+    const fileName = 'upload_1.xlsx';
+    cy.fixture(fileName, 'binary')
+      .then(Cypress.Blob.binaryStringToBlob)
+      .then(fileContent => {
+        cy.get('#input_upload_file').attachFile({
+          fileContent,
+          fileName,
+          mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          encoding: 'utf8',
+          lastModified: new Date().getTime()
+        });
+      });
 
+    // Esperar por un elemento de la UI que indica que la subida fue exitosa
+    // Por ejemplo, un enlace con el nombre del archivo:
+    cy.get(`.link_file[aria-label="${fileName}"]`, { timeout: 120000 })
+      .should('be.visible')
+      .contains('(xlsx)');
 
+    // O esperar por un mensaje de éxito:
+    // cy.get('.upload-success-message', { timeout: 120000 }).should('contain', 'Archivo subido exitosamente');
 
+    // O esperar a que un botón se habilite:
+    // cy.get('#submit-button', { timeout: 120000 }).should('not.be.disabled');
 
-
-
-
-
-
-
-
-
-
-
+    // Continúa con otras aserciones según la lógica de tu aplicación
+  });
+});
 ```
+
+# Lecture 076 - Download a File
+
+1. Install `cy-verify-downloads` dependency:
+```bash
+npm i -D cy-verify-downloads
+```
+
+2. Open `support/commands.ts` and add:
+```js
+require('cy-verify-downloads').addCustomCommand();
+```
+
+3. Complete or add in `cypress/plugins/index.js` file or for v10+ or greater open `cypress-config.ts`:
+  
+3.1 Cypress before v10 from `cypress/plugins/index.js` file
+  ```js
+  const { isFileExist, findFiles } = require('cy-verify-downloads');
+
+  ....
+  module.exports = (on, config) => {
+    on('task', { isFileExist, findFiles });
+  }
+  ```
+  
+  3.2 Cypress with v10+ from `cypress.config.ts` file
+  ```js
+  const { isFileExist, findFiles } = require('cy-verify-downloads');
+
+
+  ...
+  export default defineConfig{
+    setupNodeEvents(on, config) {
+      on("task", {isFileExist, findFiles }); // (*)
+    }, 
+  }
+  ```
+
+4. Open `tsconfig.json` file and add:
+```js
+"compilerOptions": {
+  "types": ["cy-verify-downloads"]  // (*)
+}
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```
 
 # Lecture - Different environments:
 

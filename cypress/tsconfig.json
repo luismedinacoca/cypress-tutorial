@@ -2,7 +2,13 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["es5", "dom"],
-    "types": ["cypress", "node", "cypress-real-events"]
+    "types": [
+      "cypress", 
+      "node", 
+      "cypress-real-events", 
+      "cypress-file-upload", 
+      "cy-verify-downloads"
+    ]
   },
   "include": ["**/*.ts", "e2e/02-helloworld.cy.js", "**/*/*.spec.js"]
 }

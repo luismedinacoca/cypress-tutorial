@@ -19,7 +19,9 @@
   "author": "Luis Medina Coca",
   "license": "ISC",
   "devDependencies": {
+    "cy-verify-downloads": "^0.2.6",
     "cypress": "^14.3.2",
+    "cypress-file-upload": "^5.0.8",
     "cypress-real-events": "^1.14.0",
     "typescript": "^5.7.3"
   },
