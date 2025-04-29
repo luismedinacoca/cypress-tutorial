@@ -1366,6 +1366,26 @@ npm install -D cypress-iframe
 import 'cypress-iframe';
 ```
 
+3. In Test case:
+```js
+cy.visit('/pagina-con-iframe'); // Reemplaza con la URL de tu página
+
+// make sure your iframe is rendered
+cy.get('#yourIframe').should('be.visible').then(() => {
+  cy.iframe('#yourIframe')
+    .find('body#idIFrame')
+    .then($paragraph => {
+      const newText = 'Something Iframe & Cypress.';
+      cy.log(`Writing a new text: "${newText}"`);
+      $paragraph.text(newText);
+
+      // Verify new text has been changed
+      cy.iframe('#yourIframe')
+        .find('body#idIframe')
+        .should('have.text', newText);
+    });
+});
+```
 
 
 # Lecture - Different environments:
