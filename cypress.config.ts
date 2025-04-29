@@ -11,8 +11,8 @@ export default defineConfig({
     env: {
       demoVar: "Hello from Cypress Environment Variable: 'Cypress.Config.ts'",
       demoQA: "https://demoqa.com",
-      theInternet: "https://the-internet.herokuapp.com/",
-      angular: "https://www.globalsqa.com/angular/",
+      theInternet: "https://the-internet.herokuapp.com",
+      angular: "https://www.globalsqa.com/angular",
       nucba: "https://nucba-zappi2-0.vercel.app",
       ladrones: "https://www.brandshoes.com.ar",
       sauceLabs: "https://www.saucedemo.com",

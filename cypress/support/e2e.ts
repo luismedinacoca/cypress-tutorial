@@ -18,3 +18,4 @@ import "cypress-real-events/support";
 import "./commands";
 import "./exceptions";
 require("@cypress/xpath");
+import 'cypress-iframe';

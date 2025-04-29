@@ -1354,6 +1354,18 @@ require('cy-verify-downloads').addCustomCommand();
 }
 ```
 
+# Lecture 078 - Typing inside an Iframe
+
+1. Install `iframe` dependency:
+```bash
+npm install -D cypress-iframe
+```
+
+2. Add inside `cypress/support/e2e.js`|`cypress/support/e2e.ts` o `cypress/support/index.js`:
+```js
+import 'cypress-iframe';
+```
+
 
 
 # Lecture - Different environments:
