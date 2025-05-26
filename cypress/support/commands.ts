@@ -1,6 +1,10 @@
 /// <reference types="cypress" />
 import "cypress-file-upload";
-require('cy-verify-downloads').addCustomCommand();
+import 'cypress-real-events/support';
+import '@4tw/cypress-drag-drop';
+
+//require('cy-verify-downloads').addCustomCommand();
+require('@4tw/cypress-drag-drop');
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -27,13 +31,19 @@ require('cy-verify-downloads').addCustomCommand();
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+declare global {
+  namespace Cypress {
+      interface Chainable {
+          login(email: string, password: string): Chainable<void>
+          // drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+          // dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+          // visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
+      }
+  }
+}
+
+Cypress.Commands.add('login', (username: string, password: string) => {
+  cy.get('#user-name').type(username);
+  cy.get('#password').type(password);
+  cy.get('#login-button').click();
+})

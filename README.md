@@ -1387,6 +1387,108 @@ cy.get('#yourIframe').should('be.visible').then(() => {
 });
 ```
 
+# Lecture 086 - Date Picker Scenario:
+
+[testing-library/cypress-testing-library](https://github.com/testing-library/cypress-testing-library)
+
+
+1. Execute the command:
+```bash
+npm install --save-dev @testing-library/cypress
+```
+
+2. Open `tsconfig.json` file and add:
+```js
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": [
+      "cypress", 
+      "node", 
+      ...,
+      "@testing-library/cypress" //(*)
+    ]
+  },
+  ...
+}
+```
+3. Import inside `cypress/support/commands.ts`:
+```js
+import '@testing-library/cypress/add-commands';
+```
+
+
+# Lecture 088 - Menu Hover
+
+1. Install cypress-real-events
+
+Ensure you have the plugin for realistic hover events:
+```bash
+npm install --save-dev cypress-real-events
+```
+Import it in `cypress/support/commands.js`:
+```js
+import 'cypress-real-events/support';
+```
+
+
+# Lecture 089 - Drag and Drop
+
+[cypress-drag-drop](https://www.npmjs.com/package/@4tw/cypress-drag-drop)
+
+1. Install cypress-drag-drop
+Ensure you have the plugin installed:
+```bash
+npm install --save-dev @4tw/cypress-drag-drop
+```
+Import it in `cypress/support/commands.js`:
+```js
+require('@4tw/cypress-drag-drop');
+```
+or for ES modules:
+```js
+import '@4tw/cypress-drag-drop';
+```
+2. Identify each draggable and dropable element:
+```js
+  // Optional: visually confirm the elements exist
+  cy.get('#draggable').should('be.visible');
+  cy.get('#droppable').should('be.visible');
+```
+
+3. Perform the action:
+```js
+  // Perform real drag and drop
+  cy.get('#draggable').drag('#droppable', {force: true});
+```
+
+4. Verify the dropped action was perform as expected:
+```js
+  // Verify that the drop was successful
+  cy.get('#droppable')
+    .invoke('text')
+    .then((text) => {
+      // The droppable area changes its text content to "Dropped!"
+      expect(text.trim()).to.equal('Dropped!');
+    });
+```
+
+# Lecture 091 - `cy.session()`:
+
+1. Open `cypress.config.ts.` file
+
+2. add the following:
+```js
+export default defineCnfig({
+  e2e: {
+    baseUrl: '',
+    setupNodeEvents(on, config){...},
+    env: {...},
+    experimentalSessionAndOrigin: true, // 👈🏽 (*)
+  }
+})
+```
 
 # Lecture - Different environments:
 

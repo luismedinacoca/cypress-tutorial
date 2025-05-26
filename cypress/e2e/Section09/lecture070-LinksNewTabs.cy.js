@@ -6,7 +6,11 @@ describe(`Lecture 070 - Link opens new tabs `, () => {
   });
 
   it(`First approach, not click on the link`, () => {
-    cy.get('#simpleLink').should('be.visible').should('have.attr', 'target','_blank').should('have.attr', 'href','https://demoqa.com').and('have.text', 'Home');
+    cy.get('#simpleLink').should('be.visible')
+      .should('have.attr', 'target','_blank')
+      .should('have.attr', 'href','https://demoqa.com')
+      .and('have.text', 'Home');
+    cy.get('#item-0').first().click();
     cy.wait(1500);
   });
 

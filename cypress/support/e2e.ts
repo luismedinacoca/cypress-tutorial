@@ -1,4 +1,4 @@
-import "cypress-real-events/support";
+import 'cypress-real-events/support';
 // ***********************************************************
 // This example support/e2e.ts is processed and
 // loaded automatically before your test files.
@@ -19,3 +19,21 @@ import "./commands";
 import "./exceptions";
 require("@cypress/xpath");
 import 'cypress-iframe';
+
+/****************************************\
+|************* GLOBAL HOOKS *************|
+\****************************************/
+/* 
+before(() => { 
+    cy.log('Global before');
+ });
+beforeEach(() => { 
+    cy.log('Global beforeEach');
+ });
+afterEach(() => { 
+    cy.log('Global afterEach');
+ });
+after(() => { 
+    cy.log('Global after');
+ });
+*/ 
